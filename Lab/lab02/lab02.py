@@ -14,7 +14,12 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
-
+    def h(x):
+        if(g(f(x))==f(g(x))):
+            return True
+        else:
+            return False
+    return h
 
 def sum_digits(y):
     """Return the sum of the digits of non-negative integer y."""
@@ -60,7 +65,14 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
-
+    def h(x):
+        sum=0
+        n=x
+        while(n>=1):
+            sum+=condition(x,n)
+            n-=1
+        return sum
+    return h
 
 def multiple(a, b):
     """Return the smallest number n that is a multiple of both a and b.
@@ -71,7 +83,7 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
-
+    return lambda a,b : a if a>=b else b#用lambda实现
 
 
 def cycle(f1, f2, f3):
@@ -101,4 +113,18 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
-
+    def h(time_):
+        def g(x):
+            sum=x
+            t=0
+            while(time_>t):
+                if(t%3==0):
+                    sum=f1(sum)
+                elif(t%3==1):
+                    sum=f2(sum)
+                else:
+                    sum=f3(sum)
+                t+=1
+            return sum
+        return g
+    return h
