@@ -230,6 +230,12 @@ def is_always_roll(strategy, goal=GOAL):
     """
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    forever=strategy(0,0)
+    for i in range(goal):
+        for j in range(goal):
+            if(forever!=strategy(i,j)):
+                return False
+    return True
     # END PROBLEM 7
 
 
@@ -246,6 +252,28 @@ def make_averaged(original_function, times_called=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    #样例中第一个函数参数roll_dice有两个参数，roll_dice(num_rolls, dice=six_sided)，即模拟玩家的一次回合，参数分别为掷骰子个数和骰子面数。而另一个参数为回合数。求出在这些回合数结束后得分的平均值。
+    #但实际中这个函数是任意函数，所以参数数量不固定。
+    #在lock中有个样例：
+    """
+    >>> dice = make_test_dice(3, 1, 5, 6)
+    >>> averaged_dice = make_averaged(dice, 1000)
+    >>> # Average of calling dice 1000 times
+    >>> averaged_dice()
+    ? 3.75 """
+    #所以所给样例可以直接改成averaged_dice = make_averaged(dice,40)，然后调用averaged_dice()
+    #make_averaged 完全不关心原函数内部逻辑，只要第一个函数参数最后返回的是点数（int类型）可以求和就可以了
+    
+    def f(*args):
+        t=times_called
+        sum=0
+        while(t>=1):
+            t-=1
+            sum+=original_function(*args)
+        return sum/times_called
+    return f
+#make_averaged要返回一个函数，该函数返回平均值
+    
     # END PROBLEM 8
 
 
